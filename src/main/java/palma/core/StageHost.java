@@ -1,9 +1,9 @@
-package palma.other;
+package palma.core;
 
-import javafx.fxml.FXMLLoader;
+import java.net.URL;
 
 public interface StageHost {
-    FXMLLoader getPaneLoader(String forPath);
+    URL getResource(String forPath);
     OpenStage openStage(Object key);
     OpenStage popUpStage(String paneKey, Object... bundle);
     void collectStage(Object key);

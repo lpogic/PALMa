@@ -2,7 +2,8 @@ package palma.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import palma.other.PaneController;
+import palma.core.PaneController;
+import palma.core.PaneModel;
 
 public class WelcomeController extends PaneController {
 
@@ -13,7 +14,7 @@ public class WelcomeController extends PaneController {
 
     @FXML
     void exit(ActionEvent event) {
-        getPaneHost().popPane();
+        getPaneHost().popMainPane();
     }
 
     @FXML

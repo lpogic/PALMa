@@ -1,4 +1,4 @@
-package palma.other;
+package palma.core;
 
 public abstract class PaneController {
 
@@ -22,5 +22,5 @@ public abstract class PaneController {
 
     public void open(Object ... bundle){}
 
-    public void init(){}
+    public void init(PaneModel model){}
 }

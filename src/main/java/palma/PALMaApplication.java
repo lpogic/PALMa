@@ -6,9 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import palma.other.OpenStage;
-import palma.other.StageHost;
+import palma.core.OpenStage;
+import palma.core.StageHost;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -54,17 +55,16 @@ public class PALMaApplication extends Application implements StageHost {
 
     @Override
     public void collectStage(Object key) {
-        OpenStage stage = stages.remove(key);
-        if(stage != null) {
-            if (stage.getStage() == primaryStage) exitDialog();
-            else stage.getStage().close();
+        OpenStage openStage = stages.remove(key);
+        if(openStage != null) {
+            if (openStage.getStage() == primaryStage) exitDialog();
+            else openStage.getStage().close();
         }
     }
 
     @Override
-    public FXMLLoader getPaneLoader(String forPath){
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(forPath));
-        return loader;
+    public URL getResource(String forPath){
+        return getClass().getResource(forPath);
     }
 
     public void exitDialog(){

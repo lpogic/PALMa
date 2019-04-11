@@ -1,7 +1,7 @@
 package palma.controller;
 
 
-import palma.other.PaneController;
+import palma.core.PaneController;
 
 public class GraphicDesignController extends PaneController {
 }

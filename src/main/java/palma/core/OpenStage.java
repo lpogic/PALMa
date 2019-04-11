@@ -1,4 +1,4 @@
-package palma.other;
+package palma.core;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,14 +12,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OpenStage implements PaneHost {
-    private static final String fxmlPrePath = "/palma/";
+    private static final String fxmlPrePath = "/palma/fxml/";
     private static final String fxmlPostPath = ".fxml";
 
     private Stage stage;
     private StageHost stageHost;
     private Object id;
     private Map<String, OpenPane> panes;
-    private Deque<OpenPane> runPanes;
+    private Deque<OpenPane> mainPaneStack;
 
     public OpenStage(StageHost stageHost, Object id){this(stageHost,id,new Stage());}
 
@@ -28,7 +28,7 @@ public class OpenStage implements PaneHost {
         this.id = id;
         this.stage = stage;
         panes = new HashMap<>();
-        runPanes = new ArrayDeque<>();
+        mainPaneStack = new ArrayDeque<>();
     }
 
     @Override
@@ -36,13 +36,9 @@ public class OpenStage implements PaneHost {
         return stage;
     }
 
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    private OpenPane loadPane(String key) {
+    private OpenPane loadPane(String key, PaneModel model) {
         String fxmlPath = fxmlPrePath + key + fxmlPostPath;
-        FXMLLoader loader = stageHost.getPaneLoader(fxmlPath);
+        FXMLLoader loader = new FXMLLoader(stageHost.getResource(fxmlPath));
         Pane pane;
         try{
             pane = loader.load();
@@ -56,18 +52,28 @@ public class OpenStage implements PaneHost {
         }
         PaneController controller = loader.getController();
         controller.setHosts(stageHost,this);
-        controller.init();
+        controller.init(model);
         return new OpenPane(pane,controller);
     }
 
     @Override
-    public OpenPane openPane(String key){return openPane(key,true,true);}
+    public OpenPane openPane(String key){return openPane(key, null,true,true);}
+
+    @Override
+    public OpenPane openPane(String key, PaneModel model){
+        return openPane(key, model, true, true);
+    }
 
     @Override
     public OpenPane openPane(String key, boolean read, boolean save){
+        return openPane(key, null, read, save);
+    }
+
+    @Override
+    public OpenPane openPane(String key, PaneModel model, boolean read, boolean save){
         OpenPane paneData = read ? panes.get(key) : null;
         if(paneData == null){
-            paneData = loadPane(key);
+            paneData = loadPane(key,model);
             if(save)panes.put(key,paneData);
         }
         return paneData;
@@ -78,14 +84,14 @@ public class OpenStage implements PaneHost {
 
     @Override
     public void setMainPane(OpenPane openPane, boolean stackRecord){
-        if(stackRecord)runPanes.push(openPane);
+        if(stackRecord)mainPaneStack.push(openPane);
         stage.setScene(new Scene(openPane.getPane()));
     }
 
     @Override
-    public void popPane(){
-        runPanes.pop();
-        if(runPanes.isEmpty())stageHost.collectStage(id);
-        else setMainPane(runPanes.peek(),false);
+    public void popMainPane(){
+        mainPaneStack.pop();
+        if(mainPaneStack.isEmpty())stageHost.collectStage(id);
+        else setMainPane(mainPaneStack.peek(),false);
     }
 }

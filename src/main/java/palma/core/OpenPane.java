@@ -1,4 +1,4 @@
-package palma.other;
+package palma.core;
 
 import javafx.scene.layout.Pane;
 
