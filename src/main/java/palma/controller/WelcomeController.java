@@ -2,24 +2,34 @@ package palma.controller;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import palma.core.PaneController;
-import palma.core.PaneModel;
+import palma.core.pane.OpenController;
 
-public class WelcomeController extends PaneController {
+public class WelcomeController extends OpenController {
+
+    @Override
+    protected void employ() {
+
+    }
+
+    @Override
+    protected void dress() {
+
+    }
 
     @FXML
     void create(ActionEvent event) {
-        getPaneHost().setMainPane("main");
+        stage().openScene("main").show();
     }
 
     @FXML
     void exit(ActionEvent event) {
-        getPaneHost().popMainPane();
+        stage().popOpenScene();
     }
 
     @FXML
     void open(ActionEvent event) {
-        getStageHost().popUpStage("welcome");
+
+        root().popUpStage("welcome");
     }
 
 }

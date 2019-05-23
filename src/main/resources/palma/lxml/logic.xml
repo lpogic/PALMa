@@ -12,22 +12,20 @@
             <output id="s2"/>
         </device>
         <device type="fxml" class="lamp" id="Q1">
-            <input id="s21"/>
+            <input id="ts2"/>
         </device>
         <device type="fxml" class="lamp" id="Q2">
-            <input id="s12"/>
+            <input id="tts2"/>
         </device>
     </devices>
     <functions>
-        <function class="and">
-            <input id="s1"/>
-            <input id="s2"/>
-            <output id="s12"/>
+        <function class="ton" period="1000">
+            <input name="trigger" id="s2"/>
+            <output id="ts2"/>
         </function>
-        <function class="or">
-            <input id="s2"/>
-            <input id="s1"/>
-            <output id="s21"/>
+        <function class="ton" period="1000">
+            <input name="trigger" id="ts2"/>
+            <output id="tts2"/>
         </function>
     </functions>
 </logic>

@@ -1,7 +1,6 @@
 package palma.model.logic.loader;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.shape.Circle;
 import palma.model.logic.devices.Device;

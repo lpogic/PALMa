@@ -38,8 +38,8 @@
             <Circle fx:id="Q2" fill="#9d9d9d" layoutX="150.0" layoutY="306.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
             <Circle fx:id="Q1" fill="#9d9d9d" layoutX="67.0" layoutY="306.0" radius="27.0" stroke="BLACK" strokeType="INSIDE" />
             <ToggleButton fx:id="I2" layoutX="137.0" layoutY="236.0" mnemonicParsing="false" text="I2" />
-            <Label layoutX="59.0" layoutY="298.0" text="Q1" />
-            <Label layoutX="142.0" layoutY="298.0" text="Q2" />
+            <Label layoutX="45.0" layoutY="297.0" text="I1 xor I2" />
+            <Label layoutX="131.0" layoutY="297.0" text="I1 or I2" />
             <ToggleButton fx:id="I1" layoutX="54.0" layoutY="236.0" mnemonicParsing="false" text="I1" />
          </children>
       </AnchorPane>

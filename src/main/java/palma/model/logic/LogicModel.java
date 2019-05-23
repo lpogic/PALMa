@@ -1,6 +1,5 @@
 package palma.model.logic;
 
-import palma.core.PaneModel;
 import palma.model.logic.devices.regular.RegularDevice;
 import palma.model.logic.functions.Function;
 
@@ -9,7 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class LogicModel extends PaneModel implements Runnable{
+public class LogicModel implements Runnable{
     private Collection<RegularDevice> mornings;
     private Collection<RegularDevice> evenings;
     private Collection<Signal> modelDrivenSignals;

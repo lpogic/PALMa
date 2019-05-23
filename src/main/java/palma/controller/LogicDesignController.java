@@ -3,16 +3,15 @@ package palma.controller;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
+import palma.core.pane.OpenController;
 import palma.model.logic.LogicModel;
-import palma.core.PaneController;
-import palma.core.PaneModel;
 import palma.model.logic.loader.DeviceFactory;
 import palma.model.logic.loader.LXMLLoader;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class LogicDesignController extends PaneController {
+public class LogicDesignController extends OpenController {
 
     private LogicModel model;
 
@@ -20,17 +19,16 @@ public class LogicDesignController extends PaneController {
     private BorderPane border;
 
     @Override
-    public void init(PaneModel model){
-        if(model instanceof LogicModel) {
-            this.model = (LogicModel)model;
-        }
-    }
+    public void employ(){}
+
+    @Override
+    protected void dress() {}
 
     @FXML
     public void action(){
         if(model == null){
-            LXMLLoader loader = new LXMLLoader(getStageHost().getResource("/palma/lxml/logic.xml"));
-            loader.setDeviceFactory(new DeviceFactory(getPaneHost().getStage().getScene()));
+            LXMLLoader loader = new LXMLLoader(root().getResource("/palma/lxml/logic.xml"));
+            loader.setDeviceFactory(new DeviceFactory(scene().getScene()));
             try{
                 model = loader.load();
             }catch (Exception e){

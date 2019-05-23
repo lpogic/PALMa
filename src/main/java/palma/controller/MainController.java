@@ -3,28 +3,31 @@ package palma.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.BorderPane;
-import palma.core.PaneController;
-import palma.core.PaneModel;
+import palma.core.pane.OpenController;
 
 
-public class MainController extends PaneController {
+public class MainController extends OpenController {
 
     @FXML
     private BorderPane backgroundPane;
 
     @Override
-    public void init(PaneModel model){
-        getPaneHost().getStage().setTitle("PALMa - Nowy projekt");
-        getPaneHost().openPane("logic-design");
+    public void employ(){
+        stage().getStage().setTitle("PALMa - Nowy projekt");
+    }
+
+    @Override
+    protected void dress() {
+
     }
 
     @FXML
     void graphicDesignAction(ActionEvent event) {
-        backgroundPane.setCenter(getPaneHost().openPane("graphic-design").getPane());
+        backgroundPane.setCenter(scene().openPane("graphic-design").getParent());
     }
 
     @FXML
     void logicDesignAction(ActionEvent event) {
-        backgroundPane.setCenter(getPaneHost().openPane("logic-design").getPane());
+        backgroundPane.setCenter(scene().openPane("logic-design").getParent());
     }
 }
