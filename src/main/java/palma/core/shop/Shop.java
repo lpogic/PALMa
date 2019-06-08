@@ -18,7 +18,7 @@ public class Shop {
     }
 
     public<T> void offer(Class<T> brand, Supplier<T> supplier){
-        offer(Contract.forClass(brand),supplier);
+        offer(Contract.forInstanceOf(brand),supplier);
     }
 
     public<T> void deliver(Contract<T> contract, T item){
@@ -26,7 +26,7 @@ public class Shop {
     }
 
     public<T> void deliver(Class<T> brand, T item){
-        deliver(Contract.forClass(brand),item);
+        deliver(Contract.forInstanceOf(brand),item);
     }
 
     public<T> boolean validate(Contract<T> contract){
@@ -53,13 +53,23 @@ public class Shop {
     }
 
     public<T> boolean order(Class<T> brand){
-        return order(Contract.forClass(brand));
+        return order(Contract.forInstanceOf(brand));
     }
+
+    /*public<T> T deal(Contract<T> contract) {
+        Product product = stock.get(contract);
+        if(product == null){
+            return null;
+        }
+        return contract.fetch(product, true);
+    }*/
 
     public<T> T deal(Contract<T> contract) {
         Product product = stock.get(contract);
-        if(product == null)return null;
-        return contract.fetch(product, true);
+        if(product == null)throw new NullPointerException("Deal failed: unregistered contract");
+        T item = contract.fetch(product, true);
+        if(item == null)throw new NullPointerException("Deal failed: invalid contract");
+        return item;
     }
 
     public<T> T deal(Contract<T> contract, T substitute){
@@ -68,18 +78,10 @@ public class Shop {
     }
 
     public <T> T deal(Class<T> brand){
-        return deal(Contract.forClass(brand));
+        return deal(Contract.forInstanceOf(brand));
     }
 
     public<T> T deal(Class<T> brand, T substitute){
-        return deal(Contract.forClass(brand),substitute);
-    }
-
-    public<T> T safeDeal(Contract<T> contract) {
-        Product product = stock.get(contract);
-        if(product == null)throw new NullPointerException("Deal failed: unregistered contract");
-        T item = contract.fetch(product, true);
-        if(item == null)throw new NullPointerException("Deal failed: invalid contract");
-        return item;
+        return deal(Contract.forInstanceOf(brand),substitute);
     }
 }

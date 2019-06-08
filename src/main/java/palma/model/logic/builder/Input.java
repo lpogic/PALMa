@@ -1,6 +1,9 @@
 package palma.model.logic.builder;
 
-public class Input {
+import palma.model.logic.writer.XMLNode;
+import palma.model.logic.writer.XMLizable;
+
+public class Input implements XMLizable {
 
     private DeviceAdapter owner;
     private String name;
@@ -36,5 +39,13 @@ public class Input {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public XMLNode toXmlNode() {
+        XMLNode node = new XMLNode("input");
+        node.add("name",name);
+        node.add("id", getOutput().getId());
+        return node;
     }
 }

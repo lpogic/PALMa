@@ -32,12 +32,15 @@ public class LogicFunctionDesignDealer extends OpenDealer {
     private List<Button> getFunctionButtons(){
         List<Button> buttons = new ArrayList<>();
 
-        Button andGateButton = new Button(AndGateDevice.label);
+        Button andGateButton = new Button(AndGateDevice.defaultId);
         andGateButton.setOnAction(e->{
-            shop().deliver(createdDevice, new AndGateDevice());
+            AndGateDevice andGateDevice = new AndGateDevice();
+            andGateDevice.setId(IdProvider.getFreeDeviceId(shop().deal(LogicDesignDealer.getDevices),AndGateDevice.defaultId));
+            shop().deliver(createdDevice, andGateDevice);
             shop().deal(LogicDesignDealer.addCreatedToList);
         });
         buttons.add(andGateButton);
+
 
         return buttons;
     }

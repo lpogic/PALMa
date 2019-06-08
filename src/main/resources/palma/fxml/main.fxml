@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="palma.controller.MainController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="palma.controller.MainController">
    <children>
       <BorderPane fx:id="backgroundPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -37,6 +37,7 @@
               <items>
                 <Button mnemonicParsing="false" onAction="#graphicDesignAction" text="Wygląd" />
                   <Button mnemonicParsing="false" onAction="#logicDesignAction" text="Logika" />
+                  <Button mnemonicParsing="false" onAction="#exportXml" text="Exportuj" />
               </items>
             </ToolBar>
          </bottom>

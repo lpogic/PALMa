@@ -9,16 +9,24 @@ import java.util.List;
 public interface Contract<T> {
     T fetch(Product product, boolean spend);
 
+    static ClassicContract<Boolean> forService(){
+        return new ClassicContract<>(Boolean.class, Stamp.SERVICE);
+    }
+
+    static<T> ClassicContract<T> forServiceOf(Class<T> brand){
+        return new ClassicContract<>(brand, Stamp.SERVICE);
+    }
+
     static SimpleContract forObject(){
-        return new SimpleContract(Stamp.SUPPLY);
+        return new SimpleContract(Stamp.WARRANTY);
     }
 
     static<T> ClassicContract<T> forObjectOf(Class<T> brand){
-        return new ClassicContract<>(brand, Stamp.SUPPLY);
+        return new ClassicContract<>(brand, Stamp.WARRANTY);
     }
 
-    static<T> ExclusiveContract<T> forClass(Class<T> brand){
-        return new ExclusiveContract<>(brand, Stamp.SUPPLY);
+    static<T> ExclusiveContract<T> forInstanceOf(Class<T> brand){
+        return new ExclusiveContract<>(brand, Stamp.WARRANTY);
     }
 
     static<T> Contract<List<T>> forListOf(Class<T> brand){
@@ -33,7 +41,7 @@ public interface Contract<T> {
         return new ClassicContract<>(brand, stamp);
     }
 
-    static<T> ExclusiveContract<T> forClass(Class<T> brand, Stamp stamp){
+    static<T> ExclusiveContract<T> forInstanceOf(Class<T> brand, Stamp stamp){
         return new ExclusiveContract<>(brand, stamp);
     }
 

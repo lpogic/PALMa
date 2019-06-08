@@ -1,13 +1,16 @@
 package palma.model.logic.builder;
 
+import palma.model.logic.writer.XMLNode;
+import palma.model.logic.writer.XMLizable;
+
 import java.util.HashSet;
 import java.util.Set;
 
-public class Output {
+public class Output implements XMLizable {
 
     private DeviceAdapter owner;
     private String name;
-    private String signalName;
+    private String id;
     private Set<Input> inputs;
 
     public Output(DeviceAdapter owner, String name) {
@@ -28,12 +31,12 @@ public class Output {
         this.name = name;
     }
 
-    public String getSignalName() {
-        return signalName;
+    public String getId() {
+        return id;
     }
 
-    public void setSignalName(String signalName) {
-        this.signalName = signalName;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public Set<Input> getInputs() {
@@ -44,4 +47,13 @@ public class Output {
     public String toString() {
         return name;
     }
+
+    @Override
+    public XMLNode toXmlNode() {
+        XMLNode node = new XMLNode("output");
+        node.add("name",name);
+        node.add("id", id);
+        return node;
+    }
+
 }

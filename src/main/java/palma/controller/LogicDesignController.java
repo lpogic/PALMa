@@ -8,9 +8,9 @@ import palma.dealer.LogicDesignDealer;
 
 public class LogicDesignController extends OpenController {
 
-    public static final Contract<Object> updateLeftPane = Contract.forObject();
-    public static final Contract<Object> setCenterConnections = Contract.forObject();
-    public static final Contract<Object> setCenterFunctions = Contract.forObject();
+    public static final Contract<Boolean> updateLeftPane = Contract.forService();
+    public static final Contract<Boolean> setCenterConnections = Contract.forService();
+    public static final Contract<Boolean> setCenterFunctions = Contract.forService();
 
     @FXML
     private BorderPane border;
@@ -27,12 +27,12 @@ public class LogicDesignController extends OpenController {
         shop().offer(updateLeftPane, ()->{
             devices.getChildren().setAll(shop().deal(LogicDesignDealer.getDeviceButtons));
             functions.getChildren().setAll(shop().deal(LogicDesignDealer.getFunctionButtons));
-            return null;
+            return true;
         });
 
         shop().offer(setCenterConnections, ()->{
             border.setCenter(scene().openPane("logic-connection-design").getParent());
-            return null;
+            return true;
         });
 
         shop().offer(setCenterFunctions, this::setCenterFunctions);
@@ -44,8 +44,8 @@ public class LogicDesignController extends OpenController {
     }
 
     @FXML
-    public Object setCenterFunctions(){
+    public boolean setCenterFunctions(){
         border.setCenter(scene().openPane("logic-function-design").getParent());
-        return null;
+        return true;
     }
 }

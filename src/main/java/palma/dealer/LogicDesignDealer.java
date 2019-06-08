@@ -1,9 +1,7 @@
 package palma.dealer;
 
 import javafx.scene.control.Button;
-import palma.controller.LogicConnectionDesignController;
 import palma.controller.LogicDesignController;
-import palma.core.OpenRoot;
 import palma.core.shop.OpenDealer;
 import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
@@ -15,10 +13,10 @@ import java.util.List;
 
 public class LogicDesignDealer extends OpenDealer {
 
-    public static final Contract<DeviceAdapter> selectedDevice = Contract.forObjectOf(DeviceAdapter.class, Stamp.WARRANTY);
+    public static final Contract<DeviceAdapter> selectedDevice = Contract.forObjectOf(DeviceAdapter.class);
 
-    public static final Contract<Object> addCreatedToList = Contract.forObject();
-    public static final Contract<DeviceAdapterCase> getDevices = Contract.forClass(DeviceAdapterCase.class, Stamp.WARRANTY);
+    public static final Contract<Boolean> addCreatedToList = Contract.forService();
+    public static final Contract<DeviceAdapterCase> getDevices = Contract.forObjectOf(DeviceAdapterCase.class);
     public static final Contract<List<Button>> getDeviceButtons = Contract.forListOf(Button.class);
     public static final Contract<List<Button>> getFunctionButtons = Contract.forListOf(Button.class);
 
@@ -38,11 +36,9 @@ public class LogicDesignDealer extends OpenDealer {
         shop.offer(addCreatedToList,()->{
             if(shop().order(LogicFunctionDesignDealer.createdDevice)){
                 devices.add(shop().deal(LogicFunctionDesignDealer.createdDevice));
-                System.out.println("Device added");
-                System.out.println(devices.size());
-                shop().deal(LogicDesignController.updateLeftPane);
+                return shop().deal(LogicDesignController.updateLeftPane);
             }
-            return null;
+            return false;
         });
     }
 
@@ -51,7 +47,8 @@ public class LogicDesignDealer extends OpenDealer {
 
         for(DeviceAdapter it : devices){
             if(it.isGraphical() == graphical) {
-                Button button = new Button(it.getLabel());
+                Button button = new Button(it.getId());
+                button.setPrefWidth(137.0);
                 button.setOnAction(e -> {
                     shop().deliver(selectedDevice, it);
                     shop().deal(LogicDesignController.setCenterConnections);

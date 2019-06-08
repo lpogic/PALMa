@@ -1,25 +1,16 @@
 package palma.model.logic.builder;
 
+import palma.model.logic.writer.XMLNode;
+
 public class AndGateDevice extends DeviceAdapter {
 
-    public static final String label = "And Gate";
-
-    private String name;
+    public static final String defaultId = "And Gate";
 
     public AndGateDevice() {
         super();
-        name = label;
         getInputs().add(new Input(this,"In1"));
         getInputs().add(new Input(this, "In2"));
         getOutputs().add(new Output(this, "Out"));
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     @Override
@@ -28,12 +19,9 @@ public class AndGateDevice extends DeviceAdapter {
     }
 
     @Override
-    public String getLabel() {
-        return label;
-    }
-
-    @Override
-    public String toString() {
-        return name;
+    public XMLNode toXmlNode() {
+        XMLNode node = super.toXmlNode();
+        node.add("class", "and");
+        return node;
     }
 }

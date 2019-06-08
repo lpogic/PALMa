@@ -1,8 +1,8 @@
 package palma.dealer;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -13,40 +13,40 @@ import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
 import palma.model.logic.builder.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LogicConnectionDesignDealer extends OpenDealer {
 
-    public static final Contract<List<HBox>> getConnectionRows = Contract.forListOf(HBox.class);
+    public static final Contract<List<GridPane>> getInputRows = Contract.forListOf(GridPane.class);
+    public static final Contract<List<GridPane>> getOutputRows = Contract.forListOf(GridPane.class);
 
     private DeviceAdapterCase devices;
 
     @Override
     public void employ(Shop shop) {
-        shop.offer(getConnectionRows,()->{
+        shop.offer(getInputRows,()->{
             devices = shop().deal(LogicDesignDealer.getDevices, devices);
-            return getConnectionRows(shop().deal(LogicDesignDealer.selectedDevice));
+            return getInputRows(shop().deal(LogicDesignDealer.selectedDevice));
+        });
+
+        shop.offer(getOutputRows,()->{
+            devices = shop().deal(LogicDesignDealer.getDevices, devices);
+            return getOutputRows(shop().deal(LogicDesignDealer.selectedDevice));
         });
     }
 
-    public List<HBox> getConnectionRows(DeviceAdapter device){
-        List<HBox> box = new ArrayList<>();
-
-        for(Input it : device.getInputs()){
-            box.add(createInputRow(it));
-        }
-
-        for(Output it : device.getOutputs()){
-            box.add(createOutputRow(it));
-        }
-
-        return box;
+    public List<GridPane> getInputRows(DeviceAdapter device){
+        return device.getInputs().stream().map(this::createInputRow).collect(Collectors.toList());
     }
 
-    private HBox createInputRow(Input input){
-        Label label = new Label(input.getName() + "  <--");
-        label.setFont(Font.font("System", FontWeight.EXTRA_BOLD, 18));
+    public List<GridPane> getOutputRows(DeviceAdapter device){
+        return device.getOutputs().stream().map(this::createOutputRow).collect(Collectors.toList());
+    }
+
+    private GridPane createInputRow(Input input){
+        Label label = new Label("--> " + input.getName());
+        label.setFont(Font.font("System", FontWeight.BOLD, 16));
 
         ComboBox<DeviceAdapter> deviceCombo = new ComboBox<>();
         ComboBox<Output> pinCombo = new ComboBox<>();
@@ -71,12 +71,15 @@ public class LogicConnectionDesignDealer extends OpenDealer {
             shop().deal(LogicConnectionDesignController.update);
         });
 
-        return new HBox(label, deviceCombo, pinCombo);
+        GridPane grid = new GridPane();
+        grid.add(new HBox(deviceCombo, pinCombo),0,0);
+        grid.add(label,1,0);
+        return grid;
     }
 
-    private HBox createOutputRow(Output output){
+    private GridPane createOutputRow(Output output){
         Label label = new Label(output.getName() + "  -->");
-        label.setFont(Font.font("System", FontWeight.EXTRA_BOLD, 18));
+        label.setFont(Font.font("System", FontWeight.BOLD, 16));
 
         VBox inputs = new VBox();
         for(Input it : output.getInputs()){
@@ -113,6 +116,9 @@ public class LogicConnectionDesignDealer extends OpenDealer {
         });
         inputs.getChildren().add(new HBox(deviceCombo, pinCombo));
 
-        return new HBox(label, inputs);
+        GridPane grid = new GridPane();
+        grid.add(label,0,0);
+        grid.add(inputs,1,0);
+        return grid;
     }
 }
