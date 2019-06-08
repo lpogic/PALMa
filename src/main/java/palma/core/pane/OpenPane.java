@@ -18,6 +18,7 @@ public class OpenPane extends OpenSceneScion {
 
     public Parent getParent(){
         if(parent == null)load();
+        controller.dress();
         return parent;
     }
 

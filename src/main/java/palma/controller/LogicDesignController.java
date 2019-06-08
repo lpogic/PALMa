@@ -1,47 +1,51 @@
 package palma.controller;
 
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 import palma.core.pane.OpenController;
-import palma.model.logic.LogicModel;
-import palma.model.logic.loader.DeviceFactory;
-import palma.model.logic.loader.LXMLLoader;
-
-import java.util.Timer;
-import java.util.TimerTask;
+import palma.core.shop.contract.Contract;
+import palma.dealer.LogicDesignDealer;
 
 public class LogicDesignController extends OpenController {
 
-    private LogicModel model;
+    public static final Contract<Object> updateLeftPane = Contract.forObject();
+    public static final Contract<Object> setCenterConnections = Contract.forObject();
+    public static final Contract<Object> setCenterFunctions = Contract.forObject();
 
     @FXML
     private BorderPane border;
 
-    @Override
-    public void employ(){}
-
-    @Override
-    protected void dress() {}
+    @FXML
+    private VBox devices;
 
     @FXML
-    public void action(){
-        if(model == null){
-            LXMLLoader loader = new LXMLLoader(root().getResource("/palma/lxml/logic.xml"));
-            loader.setDeviceFactory(new DeviceFactory(scene().getScene()));
-            try{
-                model = loader.load();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            Timer timer = new Timer();
-            TimerTask logicTask = new TimerTask() {
-                @Override
-                public void run() {
-                    model.run();
-                }
-            };
-            timer.scheduleAtFixedRate(logicTask,0,100);
-        }
+    private VBox functions;
+
+
+    @Override
+    public void employ(){
+        shop().offer(updateLeftPane, ()->{
+            devices.getChildren().setAll(shop().deal(LogicDesignDealer.getDeviceButtons));
+            functions.getChildren().setAll(shop().deal(LogicDesignDealer.getFunctionButtons));
+            return null;
+        });
+
+        shop().offer(setCenterConnections, ()->{
+            border.setCenter(scene().openPane("logic-connection-design").getParent());
+            return null;
+        });
+
+        shop().offer(setCenterFunctions, this::setCenterFunctions);
+    }
+
+    @Override
+    protected void dress() {
+        shop().deal(updateLeftPane);
+    }
+
+    @FXML
+    public Object setCenterFunctions(){
+        border.setCenter(scene().openPane("logic-function-design").getParent());
+        return null;
     }
 }

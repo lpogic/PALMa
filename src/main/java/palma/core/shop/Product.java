@@ -25,7 +25,7 @@ public class Product {
     }
 
     public Object imp(){
-        return supplier.get();
+        return supplier != null ? supplier.get() : null;
     }
 
     public Object get(){

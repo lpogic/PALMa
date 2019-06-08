@@ -91,6 +91,8 @@ public abstract class OpenRoot extends Application {
     }
 
     public OpenDealer openDealer(OpenDealer openDealer){
+        openDealer.setRoot(this);
+        openDealer.employ();
         return openDealer;
     }
 }

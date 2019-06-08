@@ -10,19 +10,19 @@ public interface Contract<T> {
     T fetch(Product product, boolean spend);
 
     static SimpleContract forObject(){
-        return new SimpleContract(Stamp.WARRANTY);
+        return new SimpleContract(Stamp.SUPPLY);
     }
 
     static<T> ClassicContract<T> forObjectOf(Class<T> brand){
-        return new ClassicContract<>(brand, Stamp.WARRANTY);
+        return new ClassicContract<>(brand, Stamp.SUPPLY);
     }
 
     static<T> ExclusiveContract<T> forClass(Class<T> brand){
-        return new ExclusiveContract<>(brand, Stamp.WARRANTY);
+        return new ExclusiveContract<>(brand, Stamp.SUPPLY);
     }
 
     static<T> Contract<List<T>> forListOf(Class<T> brand){
-        return new ListContract<>(brand, Stamp.WARRANTY);
+        return new ListContract<>(brand, Stamp.SUPPLY);
     }
 
     static SimpleContract forObject(Stamp stamp){
