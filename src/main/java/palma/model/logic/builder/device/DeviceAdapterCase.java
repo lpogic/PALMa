@@ -1,4 +1,4 @@
-package palma.model.logic.builder;
+package palma.model.logic.builder.device;
 
 import java.util.Collection;
 import java.util.HashSet;

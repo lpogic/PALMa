@@ -1,10 +1,12 @@
-package palma.model.logic.builder;
+package palma.model.logic.builder.device;
 
+import palma.model.logic.builder.Input;
+import palma.model.logic.builder.Output;
 import palma.model.logic.writer.XMLNode;
 
 public class AndGateDevice extends DeviceAdapter {
 
-    public static final String defaultId = "And Gate";
+    public static final String defaultName = "And Gate";
 
     public AndGateDevice() {
         super();

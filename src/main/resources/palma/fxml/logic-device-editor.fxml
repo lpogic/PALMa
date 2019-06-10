@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="palma.controller.LogicConnectionDesignController">
+<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="palma.controller.LogicDeviceEditorController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -21,7 +20,7 @@
    </rowConstraints>
    <children>
       <VBox fx:id="leftBox" alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <VBox fx:id="rightBox" alignment="TOP_CENTER" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <VBox fx:id="rightBox" alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <VBox fx:id="centerBox" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
       <Label alignment="CENTER" contentDisplay="CENTER" text="Wejścia" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       <Label text="Parametry" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />

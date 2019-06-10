@@ -1,5 +1,9 @@
-package palma.model.logic.builder;
+package palma.model.logic.builder.device;
 
+import palma.model.logic.builder.Input;
+import palma.model.logic.builder.Output;
+import palma.model.logic.builder.Parameter;
+import palma.model.logic.builder.ParameterCase;
 import palma.model.logic.writer.XMLNode;
 import palma.model.logic.writer.XMLizable;
 
@@ -9,18 +13,20 @@ import java.util.Objects;
 
 public abstract class DeviceAdapter implements XMLizable {
 
-    private String id;
+    private String name;
     private List<Input> inputs;
     private List<Output> outputs;
+    private ParameterCase parameters;
 
     public DeviceAdapter() {
         this("");
     }
 
-    public DeviceAdapter(String id) {
-        this.id = id;
+    public DeviceAdapter(String name) {
+        this.name = name;
         inputs = new ArrayList<>();
         outputs = new ArrayList<>();
+        parameters = new ParameterCase();
     }
 
     public List<Input> getInputs() {
@@ -31,21 +37,25 @@ public abstract class DeviceAdapter implements XMLizable {
         return outputs;
     }
 
+    public ParameterCase getParameters() {
+        return parameters;
+    }
+
     public boolean isGraphical() {
         return true;
     }
 
-    public String getId() {
-        return id;
+    public String getName() {
+        return name;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
-        return id;
+        return name;
     }
 
     @Override
@@ -53,18 +63,18 @@ public abstract class DeviceAdapter implements XMLizable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DeviceAdapter adapter = (DeviceAdapter) o;
-        return id.equals(adapter.id);
+        return name.equals(adapter.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(name);
     }
 
     @Override
     public XMLNode toXmlNode() {
         XMLNode node = new XMLNode(isGraphical() ? "device" : "function");
-        node.add("id", id);
+        node.add("name", name);
         node.getChildren().addAll(getInputs());
         node.getChildren().addAll(getOutputs());
         return node;

@@ -56,6 +56,7 @@ public class OpenPane extends OpenSceneScion {
             alert.setHeaderText("Błąd podczas ładowania widoku");
             alert.setContentText("Sprawdź plik: " + fxmlUrl.getFile());
             alert.showAndWait();
+            e.printStackTrace();
             throw new ExceptionInInitializerError("Pane load fail");
         }
         OpenController controller = loader.getController();

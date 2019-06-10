@@ -3,7 +3,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.FlowPane?>
 
-<ScrollPane hbarPolicy="NEVER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="palma.controller.LogicFunctionDesignController">
+<ScrollPane hbarPolicy="NEVER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="palma.controller.LogicDevicePickerController">
    <content>
       <FlowPane fx:id="flow" prefWrapLength="600.0" rowValignment="TOP" />
    </content>

@@ -1,10 +1,9 @@
 package palma.model.logic.writer;
 
-import palma.model.logic.builder.DeviceAdapter;
-import palma.model.logic.builder.DeviceAdapterCase;
+import palma.model.logic.builder.device.DeviceAdapter;
+import palma.model.logic.builder.device.DeviceAdapterCase;
 
 import java.io.*;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 

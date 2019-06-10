@@ -2,24 +2,28 @@ package palma.dealer;
 
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import palma.controller.LogicConnectionDesignController;
+import palma.controller.LogicDeviceEditorController;
 import palma.core.shop.OpenDealer;
 import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
 import palma.model.logic.builder.*;
+import palma.model.logic.builder.device.DeviceAdapter;
+import palma.model.logic.builder.device.DeviceAdapterCase;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LogicConnectionDesignDealer extends OpenDealer {
+public class LogicDeviceEditorDealer extends OpenDealer {
 
     public static final Contract<List<GridPane>> getInputRows = Contract.forListOf(GridPane.class);
     public static final Contract<List<GridPane>> getOutputRows = Contract.forListOf(GridPane.class);
+    public static final Contract<List<GridPane>> getParameterRows = Contract.forListOf(GridPane.class);
 
     private DeviceAdapterCase devices;
 
@@ -34,14 +38,23 @@ public class LogicConnectionDesignDealer extends OpenDealer {
             devices = shop().deal(LogicDesignDealer.getDevices, devices);
             return getOutputRows(shop().deal(LogicDesignDealer.selectedDevice));
         });
+
+        shop.offer(getParameterRows,()->{
+            devices = shop().deal(LogicDesignDealer.getDevices, devices);
+            return getParameterRows(shop().deal(LogicDesignDealer.selectedDevice));
+        });
     }
 
-    public List<GridPane> getInputRows(DeviceAdapter device){
+    private List<GridPane> getInputRows(DeviceAdapter device){
         return device.getInputs().stream().map(this::createInputRow).collect(Collectors.toList());
     }
 
-    public List<GridPane> getOutputRows(DeviceAdapter device){
+    private List<GridPane> getOutputRows(DeviceAdapter device){
         return device.getOutputs().stream().map(this::createOutputRow).collect(Collectors.toList());
+    }
+
+    private List<GridPane> getParameterRows(DeviceAdapter device){
+        return device.getParameters().stream().map(this::createParameterRow).collect(Collectors.toList());
     }
 
     private GridPane createInputRow(Input input){
@@ -68,7 +81,7 @@ public class LogicConnectionDesignDealer extends OpenDealer {
         });
         pinCombo.getSelectionModel().selectedItemProperty().addListener((e,o,n)->{
             input.connect(n);
-            shop().deal(LogicConnectionDesignController.update);
+            shop().deal(LogicDeviceEditorController.update);
         });
 
         GridPane grid = new GridPane();
@@ -91,7 +104,7 @@ public class LogicConnectionDesignDealer extends OpenDealer {
             pinCombo.getSelectionModel().selectedItemProperty().addListener((e,o,n)->{
                 o.connect(null);
                 n.connect(output);
-                shop().deal(LogicConnectionDesignController.update);
+                shop().deal(LogicDeviceEditorController.update);
             });
             deviceCombo.getItems().setAll(devices.getBy(d->!d.getInputs().isEmpty()));
             deviceCombo.getSelectionModel().select(it.getOwner());
@@ -107,7 +120,7 @@ public class LogicConnectionDesignDealer extends OpenDealer {
 
         pinCombo.getSelectionModel().selectedItemProperty().addListener((e,o,n)->{
             n.connect(output);
-            shop().deal(LogicConnectionDesignController.update);
+            shop().deal(LogicDeviceEditorController.update);
         });
         deviceCombo.getItems().setAll(devices.getBy(d->!d.getInputs().isEmpty()));
         deviceCombo.getSelectionModel().selectedItemProperty().addListener((e,o,n)->{
@@ -119,6 +132,21 @@ public class LogicConnectionDesignDealer extends OpenDealer {
         GridPane grid = new GridPane();
         grid.add(label,0,0);
         grid.add(inputs,1,0);
+        return grid;
+    }
+
+    private GridPane createParameterRow(Parameter parameter){
+        Label label = new Label(parameter.getName());
+
+        TextField field = new TextField(parameter.getValue());
+
+        field.textProperty().addListener((e,o,n)->{
+            parameter.setValue(n);
+        });
+
+        GridPane grid = new GridPane();
+        grid.add(label,0,0);
+        grid.add(field,0,1);
         return grid;
     }
 }

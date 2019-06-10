@@ -1,11 +1,14 @@
 package palma.dealer;
 
+import javafx.scene.control.Alert;
 import palma.core.shop.OpenDealer;
 import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
-import palma.model.logic.builder.DeviceAdapterCase;
+import palma.model.logic.builder.Input;
+import palma.model.logic.builder.device.DeviceAdapterCase;
 import palma.model.logic.builder.IdProvider;
-import palma.model.logic.builder.Validator;
+import palma.model.logic.builder.validate.ValidationException;
+import palma.model.logic.builder.validate.Validator;
 import palma.model.logic.writer.LXMLWriter;
 
 import java.io.FileNotFoundException;
@@ -21,18 +24,35 @@ public class XMLDealer extends OpenDealer {
             try{
                 if(shop().order(LogicDesignDealer.getDevices)){
                     DeviceAdapterCase devices = shop().deal(LogicDesignDealer.getDevices);
-                    IdProvider.givePinsId(devices);
-                    if(Validator.getInvalidInputs(devices).isEmpty() &&
-                        Validator.getInvalidOutputs(devices).isEmpty()){
-                        LXMLWriter.write(shop().deal(LogicDesignDealer.getDevices),"logic.xml");
-                        System.out.println("Exported");
-                        return true;
+                    IdProvider.setPinsId(devices);
+                    if(exportXml(devices)){
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Zakończono eksport");
+                        alert.setHeaderText("Sukces!");
+                        alert.setContentText("Pomyślnie wyeksportowano plik: logic.xml");
+                        alert.show();
                     }
                 }
+            }catch (ValidationException ve){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Eksport nie powódł się");
+                alert.setHeaderText("Znaleziono błędy w projekcie:");
+                alert.setContentText(ve.getCompactMessage());
+                alert.show();
             }catch(FileNotFoundException fnfe){
-                fnfe.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Eksport nie powódł się");
+                alert.setHeaderText("Wykryto problem z plikiem:");
+                alert.setContentText(fnfe.getMessage());
+                alert.showAndWait();
             }
             return false;
         });
+    }
+
+    private boolean exportXml(DeviceAdapterCase devices)throws ValidationException, FileNotFoundException {
+        Validator.validateAll(devices);
+        LXMLWriter.write(shop().deal(LogicDesignDealer.getDevices),"logic.xml");
+        return true;
     }
 }

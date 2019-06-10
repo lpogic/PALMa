@@ -1,6 +1,8 @@
 package palma.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.*;
 import palma.core.pane.OpenController;
 import palma.core.shop.contract.Contract;
@@ -9,11 +11,21 @@ import palma.dealer.LogicDesignDealer;
 public class LogicDesignController extends OpenController {
 
     public static final Contract<Boolean> updateLeftPane = Contract.forService();
-    public static final Contract<Boolean> setCenterConnections = Contract.forService();
-    public static final Contract<Boolean> setCenterFunctions = Contract.forService();
+    public static final Contract<Boolean> setCenterEditor = Contract.forService();
+    public static final Contract<Boolean> setCenterDevicePicker = Contract.forService();
+    public static final Contract<Boolean> setCenterFunctionPicker = Contract.forService();
 
     @FXML
     private BorderPane border;
+
+    @FXML
+    private Accordion accordion;
+
+    @FXML
+    private TitledPane titledDevicePane;
+
+    @FXML
+    private TitledPane titledFunctionPane;
 
     @FXML
     private VBox devices;
@@ -30,12 +42,16 @@ public class LogicDesignController extends OpenController {
             return true;
         });
 
-        shop().offer(setCenterConnections, ()->{
-            border.setCenter(scene().openPane("logic-connection-design").getParent());
+        shop().offer(setCenterEditor, ()->{
+            border.setCenter(scene().openPane("logic-device-editor").getParent());
             return true;
         });
 
-        shop().offer(setCenterFunctions, this::setCenterFunctions);
+        shop().offer(setCenterDevicePicker, this::setCenterDevicePicker);
+        shop().offer(setCenterFunctionPicker, this::setCenterFunctionPicker);
+
+        scene().openPane("logic-device-editor").load();
+        scene().openPane("logic-device-picker").load();
     }
 
     @Override
@@ -44,8 +60,18 @@ public class LogicDesignController extends OpenController {
     }
 
     @FXML
-    public boolean setCenterFunctions(){
-        border.setCenter(scene().openPane("logic-function-design").getParent());
+    public boolean setCenterDevicePicker(){
+        shop().deal(LogicDevicePickerController.setFlowDevices);
+        border.setCenter(scene().openPane("logic-device-picker").getParent());
+        accordion.setExpandedPane(titledDevicePane);
+        return true;
+    }
+
+    @FXML
+    public boolean setCenterFunctionPicker(){
+        shop().deal(LogicDevicePickerController.setFlowFunctions);
+        border.setCenter(scene().openPane("logic-device-picker").getParent());
+        accordion.setExpandedPane(titledFunctionPane);
         return true;
     }
 }

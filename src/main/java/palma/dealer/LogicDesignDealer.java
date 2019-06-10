@@ -5,8 +5,8 @@ import palma.controller.LogicDesignController;
 import palma.core.shop.OpenDealer;
 import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
-import palma.core.shop.contract.stamp.Stamp;
-import palma.model.logic.builder.*;
+import palma.model.logic.builder.device.DeviceAdapter;
+import palma.model.logic.builder.device.DeviceAdapterCase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +34,8 @@ public class LogicDesignDealer extends OpenDealer {
         shop.offer(getFunctionButtons,()->getDeviceButtons(false));
 
         shop.offer(addCreatedToList,()->{
-            if(shop().order(LogicFunctionDesignDealer.createdDevice)){
-                devices.add(shop().deal(LogicFunctionDesignDealer.createdDevice));
+            if(shop().order(LogicDevicePickerDealer.createdDevice)){
+                devices.add(shop().deal(LogicDevicePickerDealer.createdDevice));
                 return shop().deal(LogicDesignController.updateLeftPane);
             }
             return false;
@@ -47,11 +47,11 @@ public class LogicDesignDealer extends OpenDealer {
 
         for(DeviceAdapter it : devices){
             if(it.isGraphical() == graphical) {
-                Button button = new Button(it.getId());
-                button.setPrefWidth(137.0);
+                Button button = new Button(it.getName());
+                button.setPrefWidth(147.0);
                 button.setOnAction(e -> {
                     shop().deliver(selectedDevice, it);
-                    shop().deal(LogicDesignController.setCenterConnections);
+                    shop().deal(LogicDesignController.setCenterEditor);
                 });
                 buttons.add(button);
             }

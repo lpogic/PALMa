@@ -2,9 +2,9 @@ package palma;
 
 import javafx.stage.Stage;
 import palma.core.OpenRoot;
-import palma.dealer.LogicConnectionDesignDealer;
+import palma.dealer.LogicDeviceEditorDealer;
 import palma.dealer.LogicDesignDealer;
-import palma.dealer.LogicFunctionDesignDealer;
+import palma.dealer.LogicDevicePickerDealer;
 import palma.dealer.XMLDealer;
 
 public class PALMaApplication extends OpenRoot {
@@ -13,8 +13,8 @@ public class PALMaApplication extends OpenRoot {
     public void employ(Stage primaryStage) {
 
         openDealer(new LogicDesignDealer());
-        openDealer(new LogicConnectionDesignDealer());
-        openDealer(new LogicFunctionDesignDealer());
+        openDealer(new LogicDeviceEditorDealer());
+        openDealer(new LogicDevicePickerDealer());
         openDealer(new XMLDealer());
 
         primaryStage.setTitle("palma");

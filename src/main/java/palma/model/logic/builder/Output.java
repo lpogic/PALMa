@@ -1,5 +1,6 @@
 package palma.model.logic.builder;
 
+import palma.model.logic.builder.device.DeviceAdapter;
 import palma.model.logic.writer.XMLNode;
 import palma.model.logic.writer.XMLizable;
 
