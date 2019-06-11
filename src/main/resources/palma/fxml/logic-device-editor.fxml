@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ToolBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,18 +21,46 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <VBox fx:id="leftBox" alignment="TOP_CENTER" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <VBox fx:id="rightBox" alignment="TOP_RIGHT" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-      <VBox fx:id="centerBox" alignment="TOP_CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+         <content>
+            <VBox fx:id="leftBox" alignment="TOP_CENTER" />
+         </content>
+      </ScrollPane>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+         <content>
+            <VBox fx:id="centerBox" alignment="TOP_CENTER" />
+         </content>
+      </ScrollPane>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+         <content>
+            <VBox fx:id="rightBox" alignment="TOP_RIGHT" />
+         </content>
+      </ScrollPane>
       <Label alignment="CENTER" contentDisplay="CENTER" text="Wejścia" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       <Label text="Parametry" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
       <Label text="Wyjścia" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-      <Label fx:id="label" text="Label" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER">
-         <font>
-            <Font name="System Bold" size="19.0" />
-         </font>
-      </Label>
+      <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2147483647">
+         <children>
+            <Label fx:id="name" text="Label">
+               <font>
+                  <Font name="System Bold" size="19.0" />
+               </font>
+            </Label>
+            <Label fx:id="type" text="Label">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
+        <items>
+          <Button mnemonicParsing="false" onAction="#changeName" text="Zmień nazwę" />
+            <Button mnemonicParsing="false" onAction="#delete" text="Usuń" />
+        </items>
+      </ToolBar>
    </children>
 </GridPane>

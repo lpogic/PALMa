@@ -15,7 +15,8 @@ public class LogicDesignDealer extends OpenDealer {
 
     public static final Contract<DeviceAdapter> selectedDevice = Contract.forObjectOf(DeviceAdapter.class);
 
-    public static final Contract<Boolean> addCreatedToList = Contract.forService();
+    public static final Contract<Boolean> addSelected = Contract.forService();
+    public static final Contract<Boolean> deleteSelected = Contract.forService();
     public static final Contract<DeviceAdapterCase> getDevices = Contract.forObjectOf(DeviceAdapterCase.class);
     public static final Contract<List<Button>> getDeviceButtons = Contract.forListOf(Button.class);
     public static final Contract<List<Button>> getFunctionButtons = Contract.forListOf(Button.class);
@@ -33,10 +34,20 @@ public class LogicDesignDealer extends OpenDealer {
         shop.offer(getDeviceButtons,()->getDeviceButtons(true));
         shop.offer(getFunctionButtons,()->getDeviceButtons(false));
 
-        shop.offer(addCreatedToList,()->{
-            if(shop().order(LogicDevicePickerDealer.createdDevice)){
-                devices.add(shop().deal(LogicDevicePickerDealer.createdDevice));
-                return shop().deal(LogicDesignController.updateLeftPane);
+        shop.offer(addSelected,()->{
+            if(shop().order(selectedDevice)){
+                if(devices.add(shop().deal(selectedDevice)))
+                    return shop().deal(LogicDesignController.updateLeftPane);
+            }
+            return false;
+        });
+
+        shop.offer(deleteSelected,()->{
+            System.out.println(shop().deal(selectedDevice));
+            System.out.println(devices);
+            if(shop().order(selectedDevice)){
+                if(devices.remove(shop().deal(selectedDevice)))
+                    return shop().deal(LogicDesignController.updateLeftPane);
             }
             return false;
         });

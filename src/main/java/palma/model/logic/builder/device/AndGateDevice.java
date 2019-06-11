@@ -16,6 +16,11 @@ public class AndGateDevice extends DeviceAdapter {
     }
 
     @Override
+    public String getDefaultName() {
+        return defaultName;
+    }
+
+    @Override
     public boolean isGraphical() {
         return false;
     }

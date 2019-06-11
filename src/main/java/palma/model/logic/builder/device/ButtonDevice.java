@@ -16,6 +16,11 @@ public class ButtonDevice extends DeviceAdapter {
     }
 
     @Override
+    public String getDefaultName() {
+        return defaultName;
+    }
+
+    @Override
     public boolean isGraphical() {
         return true;
     }

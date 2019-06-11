@@ -17,6 +17,7 @@ public class MainController extends OpenController {
     @Override
     public void employ(){
         stage().getStage().setTitle("PALMa - Nowy projekt");
+        backgroundPane.setCenter(scene().openPane("FXML").getParent());
     }
 
     @Override
@@ -26,7 +27,7 @@ public class MainController extends OpenController {
 
     @FXML
     void graphicDesignAction(ActionEvent event) {
-        backgroundPane.setCenter(scene().openPane("graphic-design").getParent());
+        backgroundPane.setCenter(scene().openPane("FXML").getParent());
     }
 
     @FXML

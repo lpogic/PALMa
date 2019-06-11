@@ -13,6 +13,11 @@ public class FieldToFileDevice extends DeviceAdapter {
     }
 
     @Override
+    public String getDefaultName() {
+        return defaultName;
+    }
+
+    @Override
     public boolean isGraphical() {
         return super.isGraphical();
     }

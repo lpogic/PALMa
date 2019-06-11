@@ -1,6 +1,7 @@
 package palma.dealer;
 
 import javafx.scene.control.Alert;
+import javafx.stage.Modality;
 import palma.core.shop.OpenDealer;
 import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
@@ -26,18 +27,20 @@ public class XMLDealer extends OpenDealer {
                     DeviceAdapterCase devices = shop().deal(LogicDesignDealer.getDevices);
                     IdProvider.setPinsId(devices);
                     if(exportXml(devices)){
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION);
                         alert.setTitle("Zakończono eksport");
-                        alert.setHeaderText("Sukces!");
+                        alert.setHeaderText(null);
                         alert.setContentText("Pomyślnie wyeksportowano plik: logic.xml");
                         alert.show();
                     }
                 }
             }catch (ValidationException ve){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Eksport nie powódł się");
                 alert.setHeaderText("Znaleziono błędy w projekcie:");
                 alert.setContentText(ve.getCompactMessage());
+                alert.initOwner(root().getPrimaryStage());
+                alert.initModality(Modality.WINDOW_MODAL);
                 alert.show();
             }catch(FileNotFoundException fnfe){
                 Alert alert = new Alert(Alert.AlertType.ERROR);

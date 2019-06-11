@@ -3,9 +3,7 @@ package palma.dealer;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import palma.controller.LogicDeviceEditorController;
@@ -100,12 +98,15 @@ public class LogicDeviceEditorDealer extends OpenDealer {
             ComboBox<Input> pinCombo = new ComboBox<>();
 
             pinCombo.getItems().setAll(it.getOwner().getInputs());
+            pinCombo.setMaxWidth(Double.MAX_VALUE);
             pinCombo.getSelectionModel().select(it);
             pinCombo.getSelectionModel().selectedItemProperty().addListener((e,o,n)->{
                 o.connect(null);
                 n.connect(output);
                 shop().deal(LogicDeviceEditorController.update);
             });
+
+            deviceCombo.setMaxWidth(Double.MAX_VALUE);
             deviceCombo.getItems().setAll(devices.getBy(d->!d.getInputs().isEmpty()));
             deviceCombo.getSelectionModel().select(it.getOwner());
             deviceCombo.getSelectionModel().selectedItemProperty().addListener((e,o,n)->{

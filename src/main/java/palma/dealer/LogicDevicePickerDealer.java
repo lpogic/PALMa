@@ -36,8 +36,8 @@ public class LogicDevicePickerDealer extends OpenDealer {
         buttonButton.setOnAction(e->{
             ButtonDevice buttonDevice = new ButtonDevice();
             buttonDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),ButtonDevice.defaultName));
-            shop().deliver(createdDevice, buttonDevice);
-            shop().deal(LogicDesignDealer.addCreatedToList);
+            shop().deliver(LogicDesignDealer.selectedDevice, buttonDevice);
+            shop().deal(LogicDesignDealer.addSelected);
         });
         buttons.add(buttonButton);
 
@@ -51,8 +51,8 @@ public class LogicDevicePickerDealer extends OpenDealer {
         andGateButton.setOnAction(e->{
             AndGateDevice andGateDevice = new AndGateDevice();
             andGateDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),AndGateDevice.defaultName));
-            shop().deliver(createdDevice, andGateDevice);
-            shop().deal(LogicDesignDealer.addCreatedToList);
+            shop().deliver(LogicDesignDealer.selectedDevice, andGateDevice);
+            shop().deal(LogicDesignDealer.addSelected);
         });
         buttons.add(andGateButton);
 

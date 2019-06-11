@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane id="borderPane" fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="palma.controller.FXMLController">
+   <right>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+            </Lighting>
+         </effect>
+         <children>
+            <Button mnemonicParsing="false" onMouseClicked="#setOnDragDetected" prefHeight="62.0" prefWidth="99.0" text="Przycisk" />
+             <Button mnemonicParsing="false" onMouseClicked="#setOnDragDetected_1" prefHeight="62.0" prefWidth="99.0" text="Lampka" />
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <GridPane prefHeight="164.0" prefWidth="51.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="20.0" prefWidth="25.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="20.0" prefWidth="25.0" />
+            <ColumnConstraints />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="25.0" minHeight="20.0" prefHeight="25.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="20.0" prefHeight="25.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="25.0" minHeight="20.0" prefHeight="25.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Button fx:id="obrot" mnemonicParsing="false" onMouseClicked="#actionClickObrot" text="0" GridPane.rowIndex="1" />
+            <Button fx:id="skalowanieP" mnemonicParsing="false" onMouseClicked="#actionClickObrot" text="P" />
+             <Button fx:id="skalowanieZ" mnemonicParsing="false" onMouseClicked="#actionClickObrot" text="Z" GridPane.columnIndex="1" />
+            <ColorPicker fx:id="colorWybor" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+   </left>
+   <center>
+      <AnchorPane fx:id="widokGrafiki" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: cyan;" BorderPane.alignment="CENTER">
+                    </AnchorPane>
+   </center>
+</BorderPane>

@@ -39,6 +39,10 @@ public abstract class OpenRoot extends Application {
         super.stop();
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     public abstract void employ(Stage primaryStage);
 
     public OpenStage openStage(Object key){
