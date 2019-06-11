@@ -5,10 +5,7 @@ import palma.core.shop.OpenDealer;
 import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
 import palma.model.logic.builder.*;
-import palma.model.logic.builder.device.AndGateDevice;
-import palma.model.logic.builder.device.ButtonDevice;
-import palma.model.logic.builder.device.DeviceAdapter;
-import palma.model.logic.builder.device.DeviceAdapterCase;
+import palma.model.logic.builder.device.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +14,6 @@ public class LogicDevicePickerDealer extends OpenDealer {
 
     public static final Contract<List<Button>> getDeviceButtons = Contract.forListOf(Button.class);
     public static final Contract<List<Button>> getFunctionButtons = Contract.forListOf(Button.class);
-    public static final Contract<DeviceAdapter> createdDevice = Contract.forObjectOf(DeviceAdapter.class);
 
     public LogicDevicePickerDealer() {
 
@@ -41,6 +37,15 @@ public class LogicDevicePickerDealer extends OpenDealer {
         });
         buttons.add(buttonButton);
 
+        Button lampButton = new Button(LampDevice.defaultName);
+        lampButton.setOnAction(e->{
+            LampDevice lampDevice = new LampDevice();
+            lampDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),LampDevice.defaultName));
+            shop().deliver(LogicDesignDealer.selectedDevice, lampDevice);
+            shop().deal(LogicDesignDealer.addSelected);
+        });
+        buttons.add(lampButton);
+
         return buttons;
     }
 
@@ -55,6 +60,33 @@ public class LogicDevicePickerDealer extends OpenDealer {
             shop().deal(LogicDesignDealer.addSelected);
         });
         buttons.add(andGateButton);
+
+        Button orGateButton = new Button(OrGateDevice.defaultName);
+        orGateButton.setOnAction(e->{
+            OrGateDevice orGateDevice = new OrGateDevice();
+            orGateDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),OrGateDevice.defaultName));
+            shop().deliver(LogicDesignDealer.selectedDevice, orGateDevice);
+            shop().deal(LogicDesignDealer.addSelected);
+        });
+        buttons.add(orGateButton);
+
+        Button notGateButton = new Button(NotGateDevice.defaultName);
+        notGateButton.setOnAction(e->{
+            NotGateDevice notGateDevice = new NotGateDevice();
+            notGateDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),NotGateDevice.defaultName));
+            shop().deliver(LogicDesignDealer.selectedDevice, notGateDevice);
+            shop().deal(LogicDesignDealer.addSelected);
+        });
+        buttons.add(notGateButton);
+
+        Button tonButton = new Button(OnDelayTimerDevice.defaultName);
+        tonButton.setOnAction(e->{
+            OnDelayTimerDevice tonDevice = new OnDelayTimerDevice();
+            tonDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),OnDelayTimerDevice.defaultName));
+            shop().deliver(LogicDesignDealer.selectedDevice, tonDevice);
+            shop().deal(LogicDesignDealer.addSelected);
+        });
+        buttons.add(tonButton);
 
         return buttons;
     }

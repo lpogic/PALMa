@@ -22,6 +22,7 @@ public class XMLDealer extends OpenDealer {
     public void employ(Shop shop) {
 
         shop.offer(exportXml,()->{
+            shop().deal(LogicCompilationDealer.hideCompilationErrors);
             try{
                 if(shop().order(LogicDesignDealer.getDevices)){
                     DeviceAdapterCase devices = shop().deal(LogicDesignDealer.getDevices);
@@ -35,17 +36,12 @@ public class XMLDealer extends OpenDealer {
                     }
                 }
             }catch (ValidationException ve){
-                Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Eksport nie powódł się");
-                alert.setHeaderText("Znaleziono błędy w projekcie:");
-                alert.setContentText(ve.getCompactMessage());
-                alert.initOwner(root().getPrimaryStage());
-                alert.initModality(Modality.WINDOW_MODAL);
-                alert.show();
+                shop().deliver(LogicCompilationDealer.proceedException,ve);
+                shop().deal(LogicCompilationDealer.showCompilationErrors);
             }catch(FileNotFoundException fnfe){
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Eksport nie powódł się");
-                alert.setHeaderText("Wykryto problem z plikiem:");
+                alert.setHeaderText("Problem z plikiem logic.xml:");
                 alert.setContentText(fnfe.getMessage());
                 alert.showAndWait();
             }

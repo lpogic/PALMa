@@ -62,8 +62,8 @@ public class LogicDeviceEditorDealer extends OpenDealer {
         ComboBox<DeviceAdapter> deviceCombo = new ComboBox<>();
         ComboBox<Output> pinCombo = new ComboBox<>();
 
-        deviceCombo.getItems().setAll(devices);
         deviceCombo.getItems().add(null);
+        deviceCombo.getItems().setAll(devices.getBy(d->!d.getOutputs().isEmpty()));
 
         //defaults
         if(input.getOutput() != null){
@@ -123,6 +123,7 @@ public class LogicDeviceEditorDealer extends OpenDealer {
             n.connect(output);
             shop().deal(LogicDeviceEditorController.update);
         });
+        pinCombo.setDisable(true);
         deviceCombo.getItems().setAll(devices.getBy(d->!d.getInputs().isEmpty()));
         deviceCombo.getSelectionModel().selectedItemProperty().addListener((e,o,n)->{
             if(n != null)pinCombo.getItems().setAll(n.getInputs());

@@ -43,8 +43,6 @@ public class LogicDesignDealer extends OpenDealer {
         });
 
         shop.offer(deleteSelected,()->{
-            System.out.println(shop().deal(selectedDevice));
-            System.out.println(devices);
             if(shop().order(selectedDevice)){
                 if(devices.remove(shop().deal(selectedDevice)))
                     return shop().deal(LogicDesignController.updateLeftPane);

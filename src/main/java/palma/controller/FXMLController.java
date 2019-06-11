@@ -81,7 +81,6 @@ public class FXMLController extends OpenController {
             button.setLayoutX(e.getSceneX() - 70);
             button.setLayoutY(e.getSceneY() - 45);
 
-
     });
 
     widokGrafiki.getChildren().add(button);
