@@ -14,6 +14,9 @@ import palma.model.logic.builder.device.DeviceAdapter;
 
 import java.util.Optional;
 
+/**
+ * Kontroler ekranu edycji urzadzenia. Domyslnie jest czescia ekranu projektowania logiki
+ */
 public class LogicDeviceEditorController extends OpenController {
 
     public static final Contract<Boolean> update = Contract.forService();

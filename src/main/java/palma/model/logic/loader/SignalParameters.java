@@ -2,6 +2,9 @@ package palma.model.logic.loader;
 
 import palma.model.logic.Signal;
 
+/**
+ * Parametry sygnalu
+ */
 public class SignalParameters{
     private Signal signal;
     private String id;
@@ -53,6 +56,10 @@ public class SignalParameters{
         this.deviceDriven = deviceDriven;
     }
 
+    /**
+     * Splot parametrow
+     * @param that
+     */
     public void weave(SignalParameters that){
         if(that == null)return;
         that.name = this.name;

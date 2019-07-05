@@ -9,8 +9,16 @@ import palma.model.logic.builder.device.DeviceAdapterCase;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa debugujaca projekt logiki
+ */
 public class Validator {
 
+    /**
+     * Debuguje pelny projekt. Jesli funkcja zakonczy sie poprawnie, projekt jest gotowy do wyeksportowania
+     * @param devices
+     * @throws ValidationException
+     */
     public static void validateAll(DeviceAdapterCase devices)throws ValidationException{
         ValidationException exception = new ValidationException();
         exception.getErrors().addAll(getDeviceErrors(devices));
@@ -20,6 +28,11 @@ public class Validator {
         if(!exception.getErrors().isEmpty())throw exception;
     }
 
+    /**
+     * Zwraca bledy parametrow
+     * @param devices
+     * @return
+     */
     private static List<ValidationError> getParameterErrors(DeviceAdapterCase devices){
         List<ValidationError> errors = new ArrayList<>();
         for(DeviceAdapter it : devices){
@@ -31,6 +44,11 @@ public class Validator {
         return errors;
     }
 
+    /**
+     * Zwraca bledy wejsc
+     * @param devices
+     * @return
+     */
     private static List<ValidationError> getInputErrors(DeviceAdapterCase devices){
         List<ValidationError> errors = new ArrayList<>();
         for(DeviceAdapter it : devices){
@@ -43,6 +61,11 @@ public class Validator {
         return errors;
     }
 
+    /**
+     * Zwraca bledy wyjsc
+     * @param devices
+     * @return
+     */
     private static List<ValidationError> getOutputErrors(DeviceAdapterCase devices){
         List<ValidationError> errors = new ArrayList<>();
         for(DeviceAdapter it : devices){
@@ -55,6 +78,11 @@ public class Validator {
         return errors;
     }
 
+    /**
+     * Zwraca bledy urzadzen
+     * @param devices
+     * @return
+     */
     private static List<ValidationError> getDeviceErrors(DeviceAdapterCase devices){
         List<ValidationError> errors = new ArrayList<>();
         for(DeviceAdapter it : devices){

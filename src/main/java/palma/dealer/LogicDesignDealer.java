@@ -11,14 +11,23 @@ import palma.model.logic.builder.device.DeviceAdapterCase;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handlarz projektu logiki
+ */
 public class LogicDesignDealer extends OpenDealer {
 
+    /** Wybrane urzadzenie */
     public static final Contract<DeviceAdapter> selectedDevice = Contract.forObjectOf(DeviceAdapter.class);
 
+    /** Dodaj wybrane do listy urzadzen */
     public static final Contract<Boolean> addSelected = Contract.forService();
+    /** Usun wybrane z listy urzadzen */
     public static final Contract<Boolean> deleteSelected = Contract.forService();
+    /** Zwroc urzadzenia */
     public static final Contract<DeviceAdapterCase> getDevices = Contract.forObjectOf(DeviceAdapterCase.class);
+    /** Zwroc przyciski dla urzadzen */
     public static final Contract<List<Button>> getDeviceButtons = Contract.forListOf(Button.class);
+    /** Zwroc przyciski dla funkcji */
     public static final Contract<List<Button>> getFunctionButtons = Contract.forListOf(Button.class);
 
     private DeviceAdapterCase devices;

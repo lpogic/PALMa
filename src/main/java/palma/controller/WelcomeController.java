@@ -4,6 +4,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import palma.core.pane.OpenController;
 
+/**
+ * Kontroler widoku powitalnego
+ */
 public class WelcomeController extends OpenController {
 
     @Override

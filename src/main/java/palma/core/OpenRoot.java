@@ -14,6 +14,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * Szablon aplikacji. Tworzy i przechowuje wszystkie sceny. Udostepnia globalny sklep i zasoby
+ */
 public abstract class OpenRoot extends Application {
     public final String fxmlPrePath = "/palma/fxml/";
     public final String fxmlPostPath = ".fxml";
@@ -43,8 +46,17 @@ public abstract class OpenRoot extends Application {
         return primaryStage;
     }
 
+    /**
+     * Metoda inicjalizacyjna wywolywana automatycznie. W trakcie jej wywolania istnieje juz obiekt primaryStage oraz shop
+     * @param primaryStage
+     */
     public abstract void employ(Stage primaryStage);
 
+    /**
+     * Tworzy lub pobiera scene o podanym kluczu
+     * @param key
+     * @return
+     */
     public OpenStage openStage(Object key){
         OpenStage openStage = stages.get(key);
         if(openStage == null) {
@@ -56,6 +68,11 @@ public abstract class OpenRoot extends Application {
         return openStage;
     }
 
+    /**
+     * Zamyka scene
+     * @param key
+     * @return
+     */
     public boolean collectStage(Object key) {
         OpenStage openStage = stages.get(key);
         if(openStage != null) {
@@ -67,10 +84,20 @@ public abstract class OpenRoot extends Application {
         return true;
     }
 
+    /**
+     * Zwraca zasob dla podanej sciezki w postaci URL
+     * @param forPath
+     * @return
+     */
     public URL getResource(String forPath){
         return getClass().getResource(forPath);
     }
 
+    /**
+     * Zwraca zasob fxml znajdujacy sie w domyslnym katalogu dla plikow fxml
+     * @param fxml
+     * @return
+     */
     public URL getFxmlResource(String fxml){return getResource(fxmlPrePath + fxml + fxmlPostPath);}
 
     public boolean exitDialog(){
@@ -86,14 +113,27 @@ public abstract class OpenRoot extends Application {
         return false;
     }
 
+    /**
+     * Wyswietla nowe okno z widokiem okreslonym w fxml
+     * @param fxml
+     */
     public void popUpStage(String fxml){
         openStage(new Stage()).openScene(fxml).show();
     }
 
+    /**
+     * Zwraca sklep
+     * @return
+     */
     public Shop getShop() {
         return shop;
     }
 
+    /**
+     * Inicjalizuje sprzedawcę
+     * @param openDealer
+     * @return
+     */
     public OpenDealer openDealer(OpenDealer openDealer){
         openDealer.setRoot(this);
         openDealer.employ();

@@ -7,6 +7,9 @@ import palma.core.scene.OpenScene;
 
 import java.net.URL;
 
+/**
+ * Rozszerzona klasa Parent. Umozliwia dostep do przodkow i potomkow, oraz pozwala zaladowac pliki fxml
+ */
 public class OpenPane extends OpenSceneScion {
 
     private Parent parent;
@@ -16,33 +19,54 @@ public class OpenPane extends OpenSceneScion {
         super(id,openScene);
     }
 
+    /**
+     * Wczytuje widok, jesli jeszcze nie zostal wczytany, odswieza kontroler i zwraca obiekt parent
+     * @return Zaladowany obiekt Parent, gwarancja not-null
+     */
     public Parent getParent(){
         if(parent == null)load();
         controller.dress();
         return parent;
     }
 
+    /**
+     * Wyswietla widok o nazwie zgodnej z id
+     */
     public void show(){
         scene().openPane(getId(),true);
         scene().show();
     }
 
+    /**
+     * Wyswietla widok o podanej nazwie
+     * @param fxml
+     */
     public void show(String fxml){
         load(fxml);
         show();
     }
 
+    /**
+     * Warunkowo laduje widok, a nastepnie odswieza kontroler
+     */
     public void dress(){
         if(controller == null)load();
         controller.dress();
     }
 
+    /**
+     * Laduje widok na postawie id
+     */
     public void load(){
         if (getId() instanceof String) {
             load((String) getId());
         } else throw new NullPointerException("Cannot determine pane source");
     }
 
+    /**
+     * Laduje widok i inicjalizuje kontroler
+     * @param fxml
+     */
     public void load(String fxml) {
         URL fxmlUrl = root().getFxmlResource(fxml);
         System.out.println(fxmlUrl.getFile());

@@ -7,6 +7,10 @@ import palma.core.scene.OpenScene;
 
 import java.util.*;
 
+/**
+ * Rozszerzona klasa Stage. Oferuje dostep do rodowodu. Przechowuje historie scen. Pozwala na tworzenie prostych
+ * kolejek watkow oczekujacych na zamkniecie okna.
+ */
 public class OpenStage extends OpenRootScion {
 
     private Stage stage;
@@ -28,10 +32,17 @@ public class OpenStage extends OpenRootScion {
         });
     }
 
+    /**
+     * Zwraca obiekt stage
+     * @return
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Odswieza potomkow i wyswietla, jesli niewidoczny lub przenosi na wierzch jesli widoczny
+     */
     public void show(){
         if(primaryScene == null)openScene(getId(),true);
         primaryScene.dress();
@@ -42,6 +53,9 @@ public class OpenStage extends OpenRootScion {
         else stage.show();
     }
 
+    /**
+     * Wyswietla scene i ustawia watek w kolejce zamkniecia
+     */
     public void showAndWait(){
         show();
         Object o = new Object();
@@ -49,16 +63,34 @@ public class OpenStage extends OpenRootScion {
         Platform.enterNestedEventLoop(o);
     }
 
+    /**
+     * Zamyka scene i usowa z pamieci
+     */
     public void close(){
         root().collectStage(getId());
     }
 
+    /**
+     * Otwiera scene z domyslnym id
+     * @return
+     */
     public OpenScene openScene(){return openScene(getId(),false);}
 
+    /**
+     * Otwiera scene z podanym id
+     * @param openSceneId
+     * @return
+     */
     public OpenScene openScene(Object openSceneId){
         return openScene(openSceneId,false);
     }
 
+    /**
+     * Otwiera scene z podanym id i warunkowo ustawia ja jako glowna
+     * @param openSceneId
+     * @param setAsPrimary
+     * @return
+     */
     public OpenScene openScene(Object openSceneId, boolean setAsPrimary){
         OpenScene openScene = loadedScenes.get(openSceneId);
         if(openScene == null){
@@ -73,6 +105,9 @@ public class OpenStage extends OpenRootScion {
         return openScene;
     }
 
+    /**
+     * Umozliwia powrot do poprzedniej sceny lub zamkniecie gdy historia scen jest pusta
+     */
     public void popOpenScene(){
         if(pastScenes.isEmpty()){
             root().collectStage(getId());

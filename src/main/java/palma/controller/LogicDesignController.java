@@ -8,6 +8,9 @@ import palma.core.pane.OpenController;
 import palma.core.shop.contract.Contract;
 import palma.dealer.LogicDesignDealer;
 
+/**
+ * Kontroler ekranu projektowania logiki
+ */
 public class LogicDesignController extends OpenController {
 
     public static final Contract<Boolean> updateLeftPane = Contract.forService();

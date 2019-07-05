@@ -7,6 +7,9 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 
+/**
+ * Fabryka funkcji. Tworzy funkcje na bazie elementow odczytanych z xml
+ */
 public class FunctionFactory {
 
     public Function makeFunction(StartElement element, SignalParametersCollection signals)throws LXMLParsingException{

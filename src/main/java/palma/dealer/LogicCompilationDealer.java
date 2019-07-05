@@ -17,12 +17,19 @@ import palma.model.logic.builder.validate.ValidationException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handlarz kompilacji logiki
+ */
 public class LogicCompilationDealer extends OpenDealer {
 
+    /** Przetwarzany wyjatek kompilacji */
     public static final Contract<ValidationException> proceedException = Contract.forObjectOf(ValidationException.class);
 
+    /** Wyswietl bledy kompilacji */
     public static final Contract<Boolean> showCompilationErrors = Contract.forService();
+    /** Ukryj bledy kompilacji */
     public static final Contract<Boolean> hideCompilationErrors = Contract.forService();
+    /** Zwroc przyciski wyjatkow */
     public static final Contract<List<Button>> getExceptionButtons = Contract.forListOf(Button.class);
 
     @Override

@@ -13,6 +13,9 @@ import javax.xml.stream.events.*;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Loader plikow lxml (xml). Sluzy do zaladowania z pliku xml projektu logiki
+ */
 public class LXMLLoader {
     private URL url;
     private DeviceFactory deviceFactory;

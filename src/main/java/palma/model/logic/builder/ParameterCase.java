@@ -5,6 +5,9 @@ import java.util.HashSet;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Kolekcja parametrow
+ */
 public class ParameterCase extends HashSet<Parameter> {
 
     public ParameterCase(int initialCapacity) {

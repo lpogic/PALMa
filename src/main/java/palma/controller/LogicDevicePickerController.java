@@ -6,6 +6,9 @@ import palma.core.pane.OpenController;
 import palma.core.shop.contract.Contract;
 import palma.dealer.LogicDevicePickerDealer;
 
+/**
+ * Kontroler ekranu wyboru urzadzenia. Domyslnie jest czescia ekranu projektowania logiki
+ */
 public class LogicDevicePickerController extends OpenController {
 
     public static final Contract<Boolean> setFlowDevices = Contract.forService();

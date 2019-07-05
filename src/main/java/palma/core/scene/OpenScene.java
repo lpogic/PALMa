@@ -9,6 +9,9 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * Rozszerzona klasa Scene. Pozwala na dostep do rodowodu i przechowuje zaladowane widoki
+ */
 public class OpenScene extends OpenStageScion {
 
     private Scene scene;
@@ -22,11 +25,17 @@ public class OpenScene extends OpenStageScion {
         styles = new HashSet<>();
     }
 
+    /**
+     * Laduje widok na podstawie id i wyswietla
+     */
     public void show(){
         stage().openScene(getId(),true);
         stage().show();
     }
 
+    /**
+     * Przygotowuje obiekt i obiekty potomne do wyswietlenia
+     */
     public void dress(){
         if(primaryPane == null)openPane(getId(),true);
         int i = 0;
@@ -42,18 +51,34 @@ public class OpenScene extends OpenStageScion {
         }
     }
 
+    /**
+     * Zwraca obiekt Scene
+     * @return
+     */
     public Scene getScene(){
         return scene;
     }
 
+    /**
+     * Zwraca stworzony lub pobrany obiekt OpenPane z id identycznym jak wlasny
+     * @return
+     */
     public OpenPane openPane(){
         return openPane(getId(),false);
     }
 
+    /**
+     * Zwraca stworzony lub pobrany obiekt OpenPane z wybranym id
+     * @return
+     */
     public OpenPane openPane(Object openPaneId){
         return openPane(openPaneId,false);
     }
 
+    /**
+     * Zwraca stworzony lub pobrany obiekt OpenPane z wybranym id i warunkowo ustwia go jako glowny
+     * @return
+     */
     public OpenPane openPane(Object openPaneId, boolean setAsPrimary){
         OpenPane openPane = loadedPanes.get(openPaneId);
         if(openPane == null){
@@ -67,6 +92,10 @@ public class OpenScene extends OpenStageScion {
         return openPane;
     }
 
+    /**
+     * Dodaje karte stylu do listy kart stylu
+     * @param stylePath
+     */
     public void openStyle(String stylePath){
         if(scene != null){
             scene.getStylesheets().add(stylePath);
@@ -74,6 +103,10 @@ public class OpenScene extends OpenStageScion {
         styles.add(stylePath);
     }
 
+    /**
+     * Dodaje karte stylu do listy kart stylu nie konczac zdania
+     * @param stylePath
+     */
     public OpenScene openStyleAnd(String stylePath){
         openStyle(stylePath);
         return this;

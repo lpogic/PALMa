@@ -1,5 +1,8 @@
 package palma.model.logic.loader.exceptions;
 
+/**
+ * Wyjatek parsowania pliku xml. Rzucany gdy nastapi blad odczytu pliku xml
+ */
 public class LXMLParsingException extends Exception {
 
     public LXMLParsingException() {

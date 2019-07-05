@@ -8,7 +8,9 @@ import palma.dealer.LogicDesignDealer;
 import palma.dealer.XMLDealer;
 import palma.model.logic.writer.LXMLWriter;
 
-
+/**
+ * Kontroler widoku nadrzednego
+ */
 public class MainController extends OpenController {
 
     @FXML

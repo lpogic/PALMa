@@ -6,6 +6,10 @@ import palma.model.logic.builder.validate.ValidationError;
 
 import java.util.List;
 
+/**
+ * Reprezentuje parametr urzadzenia. Poprawnosc parametru jest sprawdzana przez ParameterValidator podczas
+ * etapu walidacji
+ */
 public class Parameter {
 
     private DeviceAdapter owner;

@@ -3,6 +3,9 @@ package palma.model.logic.builder.validate;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Wyjatek nieudanej walidacji
+ */
 public class ValidationException extends Exception {
 
     private List<ValidationError> errors;

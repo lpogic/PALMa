@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+/**
+ * Kolekcja parametrow sygnalu
+ */
 public class SignalParametersCollection extends HashSet<SignalParameters> {
 
     public SignalParametersCollection(int initialCapacity) {

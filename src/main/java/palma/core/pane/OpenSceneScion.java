@@ -5,6 +5,9 @@ import palma.core.scene.OpenScene;
 import palma.core.shop.Shop;
 import palma.core.stage.OpenStage;
 
+/**
+ * Potomek OpenScene
+ */
 public abstract class OpenSceneScion {
 
     private Object id;

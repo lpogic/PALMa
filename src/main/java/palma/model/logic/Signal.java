@@ -1,5 +1,9 @@
 package palma.model.logic;
 
+/**
+ * Sygnal ustawiany przez wyjscie i odczytywany przez wejscie. Poza stanami niskim i wysokim,
+ * moze miec stan niezdefiniowany.
+ */
 public class Signal {
     private State state;
 

@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
+/**
+ * Klasa wyliczajaca stany wyjsc
+ */
 public class LogicModel implements Runnable{
     private Collection<RegularDevice> mornings;
     private Collection<RegularDevice> evenings;

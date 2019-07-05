@@ -4,6 +4,9 @@ import palma.core.OpenRoot;
 import palma.core.shop.Shop;
 import palma.core.stage.OpenStage;
 
+/**
+ * Potomek obiektu OpenStage
+ */
 public abstract class OpenStageScion {
 
     private Object id;

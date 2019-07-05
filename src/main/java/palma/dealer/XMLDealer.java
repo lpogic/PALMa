@@ -14,8 +14,12 @@ import palma.model.logic.writer.LXMLWriter;
 
 import java.io.FileNotFoundException;
 
+/**
+ * Handlarz obslugi xml
+ */
 public class XMLDealer extends OpenDealer {
 
+    /** Eksportuj projekt logiki do pliku XML */
     public static final Contract<Boolean> exportXml = Contract.forService();
 
     @Override

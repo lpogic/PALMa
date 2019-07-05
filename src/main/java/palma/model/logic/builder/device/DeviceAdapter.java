@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Abstrakcyjne urzadzenie. Kazde urzadzenie jest budowane przez rozszerzenie tej klasy,
+ * dodajac w konstruktorze odpowiednie wejscia, wyjscia i parametry, oraz ustawiajac nazwe urzadzenia.
+ */
 public abstract class DeviceAdapter implements XMLizable {
 
     private String name;
@@ -41,10 +45,16 @@ public abstract class DeviceAdapter implements XMLizable {
         return parameters;
     }
 
+    /**
+     * @return Dla urzadzen powinna zwracac false, dla funkcji true
+     */
     public boolean isGraphical() {
         return true;
     }
 
+    /**
+     * Indywidualna nazwa urzadzenia
+     */
     public String getName() {
         return name;
     }
@@ -53,6 +63,10 @@ public abstract class DeviceAdapter implements XMLizable {
         this.name = name;
     }
 
+    /**
+     * Domyslna nazwa urzadzenia
+     * @return
+     */
     public abstract String getDefaultName();
 
     @Override

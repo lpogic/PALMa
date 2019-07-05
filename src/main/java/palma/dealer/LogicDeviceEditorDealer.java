@@ -17,10 +17,16 @@ import palma.model.logic.builder.device.DeviceAdapterCase;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Handlarz edytora urzadzenia
+ */
 public class LogicDeviceEditorDealer extends OpenDealer {
 
+    /** Zwroc wiersze wejsc wybranego urzadzenia */
     public static final Contract<List<GridPane>> getInputRows = Contract.forListOf(GridPane.class);
+    /** Zwroc wiersze wyjsc wybranego urzadzenia */
     public static final Contract<List<GridPane>> getOutputRows = Contract.forListOf(GridPane.class);
+    /** Zwroc wiersze parametrow wybranego urzadzenia */
     public static final Contract<List<GridPane>> getParameterRows = Contract.forListOf(GridPane.class);
 
     private DeviceAdapterCase devices;

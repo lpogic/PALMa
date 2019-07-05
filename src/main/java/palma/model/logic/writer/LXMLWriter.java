@@ -7,6 +7,9 @@ import java.io.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Klasa realizujaca zapis projektu do pliku xml
+ */
 public class LXMLWriter {
     public static String xmlSettings = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
 

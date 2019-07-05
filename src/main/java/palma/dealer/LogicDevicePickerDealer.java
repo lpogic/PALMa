@@ -10,9 +10,14 @@ import palma.model.logic.builder.device.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handlarz wyboru urzadzenia
+ */
 public class LogicDevicePickerDealer extends OpenDealer {
 
+    /** Zwroc przyciski urzadzen */
     public static final Contract<List<Button>> getDeviceButtons = Contract.forListOf(Button.class);
+    /** Zwroc przyciski funkcji */
     public static final Contract<List<Button>> getFunctionButtons = Contract.forListOf(Button.class);
 
     public LogicDevicePickerDealer() {

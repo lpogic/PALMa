@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Obiekt, ktory moze zostac zapisany w formacie xml
+ */
 public class XMLNode{
     private String name;
     private Map<String, Object> attributes;

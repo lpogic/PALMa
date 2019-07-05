@@ -4,6 +4,9 @@ import palma.model.logic.builder.device.DeviceAdapter;
 import palma.model.logic.writer.XMLNode;
 import palma.model.logic.writer.XMLizable;
 
+/**
+ * Reprezentuje wejscie urzadzenia
+ */
 public class Input implements XMLizable {
 
     private DeviceAdapter owner;

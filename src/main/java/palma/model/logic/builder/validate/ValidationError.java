@@ -1,5 +1,8 @@
 package palma.model.logic.builder.validate;
 
+/**
+ * Przechowuje wiadomosc o bledzie i element, ktorego blad dotyczy
+ */
 public class ValidationError {
 
     private Object object;

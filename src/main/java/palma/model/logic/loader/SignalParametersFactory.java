@@ -7,6 +7,9 @@ import javax.xml.namespace.QName;
 import javax.xml.stream.events.Attribute;
 import javax.xml.stream.events.StartElement;
 
+/**
+ * Fabryka parametrow sygnalu
+ */
 public class SignalParametersFactory {
 
     public SignalParameters makeSignalParameters(StartElement element)throws LXMLParsingException{

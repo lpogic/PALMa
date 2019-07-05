@@ -7,6 +7,9 @@ import palma.model.logic.writer.XMLizable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Reprezentuje wyjscie urzadzenia
+ */
 public class Output implements XMLizable {
 
     private DeviceAdapter owner;
