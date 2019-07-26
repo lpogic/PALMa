@@ -10,6 +10,7 @@ import palma.core.pane.OpenController;
 import palma.core.shop.contract.Contract;
 import palma.dealer.LogicDeviceEditorDealer;
 import palma.dealer.LogicDesignDealer;
+import palma.model.graphic.LogicGraphicConnected;
 import palma.model.logic.builder.device.DeviceAdapter;
 
 import java.util.Optional;
@@ -69,6 +70,7 @@ public class LogicDeviceEditorController extends OpenController {
             shop().deal(update);
             shop().deal(LogicDesignController.updateLeftPane);
         });
+        LogicGraphicConnected.changeNameKeyWithValue(device);
     }
 
     @FXML

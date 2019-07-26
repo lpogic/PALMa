@@ -1,18 +1,28 @@
 package palma.controller;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Paint;
+import javafx.util.Pair;
+import org.w3c.dom.events.Event;
 import palma.core.pane.OpenController;
-import palma.model.graphic.MyButton;
-import palma.model.graphic.MyCircle;
-import palma.model.graphic.SelectableNode;
-import palma.model.graphic.SelectionHandler;
+import palma.dealer.LogicDesignDealer;
+import palma.model.graphic.*;
+import palma.model.logic.builder.IdProvider;
+import palma.model.logic.builder.device.ButtonDevice;
+import palma.model.logic.builder.device.DeviceAdapter;
+import palma.model.logic.builder.device.LampDevice;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,6 +39,7 @@ public class FXMLController extends OpenController {
 
     @FXML
     public AnchorPane widokGrafiki;
+    public static AnchorPane referenceGrafikaPublic;
 
     public Button obrot;
 
@@ -40,6 +51,14 @@ public class FXMLController extends OpenController {
 
     public Node selectedButton;
 
+    public TextField nazwa;
+    public static TextField referenceNazwaPublic;
+
+
+    public TextField id;
+    public static TextField referenceIDPublic;
+
+    protected static ModuleLayer.Controller instance;
 
     @FXML
     public void zapiszProjekt(MouseEvent event)  {
@@ -50,10 +69,14 @@ public class FXMLController extends OpenController {
 
     }
 
+
     @Override
     protected void employ() {
         SelectionHandler selectionHandler = new SelectionHandler(widokGrafiki);
         widokGrafiki.addEventHandler(MouseEvent.MOUSE_PRESSED, selectionHandler.getMousePressedEventHandler());
+        FXMLController.referenceNazwaPublic = nazwa;
+        FXMLController.referenceIDPublic = id;
+        FXMLController.referenceGrafikaPublic = widokGrafiki;
     }
 
     @Override
@@ -61,20 +84,6 @@ public class FXMLController extends OpenController {
 
     }
 
-/*
-    public void setOnDragDetected(MouseEvent event) {
-
-        ToggleButton button = new ToggleButton("                       ");
-        button.setOnMouseDragged(e -> {
-            button.setLayoutX(e.getSceneX() - 20);
-            button.setLayoutY(e.getSceneY() - 60);
-
-
-        });
-
-        widokGrafiki.getChildren().add(button);
-    }
-*/
     public void setOnDragDetected(MouseEvent event) {
         MyButton button = new MyButton(20.0f, 20.0f);
         button.setOnMouseDragged(e -> {
@@ -82,10 +91,14 @@ public class FXMLController extends OpenController {
             button.setLayoutY(e.getSceneY() - 45);
 
     });
-
-    widokGrafiki.getChildren().add(button);
+        ButtonDevice buttonDevice = new ButtonDevice();
+        buttonDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),ButtonDevice.defaultName));
+        shop().deliver(LogicDesignDealer.selectedDevice, buttonDevice);
+        shop().deal(LogicDesignDealer.addSelected);
+        button.defaultName = buttonDevice.getName();
+        widokGrafiki.getChildren().add(button);
+        LogicGraphicConnected.listDeviceConnected.add(new Pair<SelectableNode, DeviceAdapter>(button,buttonDevice));
 }
-
 
     public void setOnDragDetected_1(MouseEvent event) {
 
@@ -94,18 +107,20 @@ public class FXMLController extends OpenController {
             circle.setLayoutX(e.getSceneX() - 90);
             circle.setLayoutY(e.getSceneY() - 60);
         });
-
+        LampDevice lampDevice = new LampDevice();
+        lampDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),LampDevice.defaultName));
+        shop().deliver(LogicDesignDealer.selectedDevice, lampDevice);
+        shop().deal(LogicDesignDealer.addSelected);
+        circle.defaultName = lampDevice.getName();
         widokGrafiki.getChildren().add(circle);
+        LogicGraphicConnected.listDeviceConnected.add(new Pair<SelectableNode, DeviceAdapter>(circle,lampDevice));
 
     }
 
     public void actionClickObrot(MouseEvent mouseEvent) {
 
         for (SelectableNode but : SelectionHandler.Clipboard.getSelectedItems()) {
-          /*  if(but instanceof ToggleButton)
-                if(((ToggleButton) but).isSelected())
-                    selectedButton = (ToggleButton) but;*/
-                    selectedButton =(Node) but;
+            selectedButton = (Node) but;
             if (mouseEvent.getSource() == obrot) {
                 degree = (int) selectedButton.getRotate() + 15;
                 selectedButton.setRotate(degree);
@@ -125,12 +140,13 @@ public class FXMLController extends OpenController {
         }
     }
 
- /*   private Stage getStage (Event event){
-        return (Stage) ((Node) event.getSource()).getScene().getWindow();
+    public void changeColor(ActionEvent event) {
+        for (SelectableNode but : SelectionHandler.Clipboard.getSelectedItems()) {
+            //     System.console().printf(String.valueOf(but.equals(MyButton.class)));
+            if(but instanceof MyButton)
+            ((MyButton) but).setFill(Paint.valueOf(colorWybor.getValue().toString()));
+            else
+                ((MyCircle) but).setFill(Paint.valueOf(colorWybor.getValue().toString()));
+        }
     }
-
-    private Node getNode (Event event){
-        return (Node) event.getSource();
-    }
-*/
 }

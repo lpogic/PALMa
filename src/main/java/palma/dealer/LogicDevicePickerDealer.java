@@ -1,9 +1,16 @@
 package palma.dealer;
 
+import javafx.collections.FXCollections;
 import javafx.scene.control.Button;
+import javafx.util.Pair;
+import palma.controller.FXMLController;
 import palma.core.shop.OpenDealer;
 import palma.core.shop.Shop;
 import palma.core.shop.contract.Contract;
+import palma.model.graphic.LogicGraphicConnected;
+import palma.model.graphic.MyButton;
+import palma.model.graphic.MyCircle;
+import palma.model.graphic.SelectableNode;
 import palma.model.logic.builder.*;
 import palma.model.logic.builder.device.*;
 
@@ -39,6 +46,15 @@ public class LogicDevicePickerDealer extends OpenDealer {
             buttonDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),ButtonDevice.defaultName));
             shop().deliver(LogicDesignDealer.selectedDevice, buttonDevice);
             shop().deal(LogicDesignDealer.addSelected);
+            MyButton button = new MyButton(20.0f, 20.0f);
+            button.setOnMouseDragged(s -> {
+                button.setLayoutX(s.getSceneX() - 70);
+                button.setLayoutY(s.getSceneY() - 45);
+            });
+            button.defaultName = buttonDevice.getName();
+            FXMLController.referenceGrafikaPublic.getChildren().add(button);
+
+            LogicGraphicConnected.listDeviceConnected.add(new Pair<SelectableNode, DeviceAdapter>(button,buttonDevice));
         });
         buttons.add(buttonButton);
 
@@ -48,6 +64,16 @@ public class LogicDevicePickerDealer extends OpenDealer {
             lampDevice.setName(IdProvider.getFreeDeviceName(shop().deal(LogicDesignDealer.getDevices),LampDevice.defaultName));
             shop().deliver(LogicDesignDealer.selectedDevice, lampDevice);
             shop().deal(LogicDesignDealer.addSelected);
+
+            MyCircle circle = new MyCircle(30.0f, 30.0f, 10.f);
+            circle.setOnMouseDragged(s -> {
+                circle.setLayoutX(s.getSceneX() - 90);
+                circle.setLayoutY(s.getSceneY() - 60);
+            });
+            circle.defaultName = lampDevice.getName();
+            FXMLController.referenceGrafikaPublic.getChildren().add(circle);
+
+            LogicGraphicConnected.listDeviceConnected.add(new Pair<SelectableNode, DeviceAdapter>(circle,lampDevice));
         });
         buttons.add(lampButton);
 

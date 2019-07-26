@@ -33,7 +33,7 @@ public class ValidationException extends Exception {
         for(ValidationError it : errors){
             strb.append(i).append(". ").append(it.toString()).append("\n");
             if(++i > 8){
-                strb.append("I jeszcze ").append(errors.size() - 8).append(" innych błędów...");
+                strb.append("I jeszcze ").append(errors.size() - 8).append(" innych bledow...");
                 break;
             }
         }

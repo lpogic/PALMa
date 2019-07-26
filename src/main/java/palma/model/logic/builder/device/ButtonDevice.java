@@ -1,5 +1,7 @@
 package palma.model.logic.builder.device;
 
+import palma.model.graphic.LogicGraphicConnected;
+import palma.model.graphic.MyButton;
 import palma.model.logic.builder.Output;
 import palma.model.logic.builder.Parameter;
 import palma.model.logic.builder.validate.SizedStringValidator;
@@ -31,6 +33,7 @@ public class ButtonDevice extends DeviceAdapter {
         node.add("type", "fxml");
         node.add("class", "button");
         node.add("id", getParameters().getFirstByName("Identyfikator").getValue());
+        ((MyButton)LogicGraphicConnected.getObjectWithValue(this).getKey()).ID = (getParameters().getFirstByName("Identyfikator").getValue());
         return node;
     }
 }

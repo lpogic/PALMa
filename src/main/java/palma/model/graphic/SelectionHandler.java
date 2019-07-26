@@ -6,6 +6,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import palma.controller.FXMLController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +56,21 @@ public class SelectionHandler {
             if(n.requestSelection(selected)) {
                 if (selected) {
                     selectedItems.add(n);
+
+                    if(n instanceof MyButton) {
+                        FXMLController.referenceIDPublic.setText(String.valueOf(((MyButton) n).ID));
+                        FXMLController.referenceNazwaPublic.setText(String.valueOf(((MyButton) n).defaultName));
+                    }
+                    else {
+                        FXMLController.referenceIDPublic.setText(String.valueOf(((MyCircle) n).ID));
+                        FXMLController.referenceNazwaPublic.setText(String.valueOf(((MyCircle) n).defaultName));
+                    }
+
                 } else {
                     selectedItems.remove(n);
+                    FXMLController.referenceIDPublic.setText("ID");
+                    FXMLController.referenceNazwaPublic.setText("Nazwa");
+
                 }
                 n.notifySelection(selected);
                 return true;

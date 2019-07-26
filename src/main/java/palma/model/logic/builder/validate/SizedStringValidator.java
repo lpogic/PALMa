@@ -19,7 +19,7 @@ public class SizedStringValidator implements ParameterValidator {
     public List<ValidationError> validate(Parameter parameter) {
         List<ValidationError> errors = new ArrayList<>();
         if (parameter.getValue() == null) errors.add(new ValidationError(parameter, parameter.getOwner() + ":"
-                + parameter.getName() + ": wartość nie może być pusta"));
+                + parameter.getName() + ": wartosc nie moze byc pusta"));
         else {
             if (parameter.getValue().length() < minSize)
                 errors.add(new ValidationError(parameter, parameter.getOwner() + ":"
